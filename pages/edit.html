@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>レシピマネージャー - edit</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="icon" type="img/png" href="../assets/favicon.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <h1>
+                <a href="../index.html"><img class="logo" src="../assets/logo.svg" alt="logo"></a>
+            </h1>
+        </header>
+
+        <main class="add-page">
+            <button type="button" onclick="deleteRecipe()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash3-fill delete-recipe-btn" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                </svg>
+            </button>
+            <form id="recipe-add-form">
+                <label>
+                    写真
+                    <input type="file" name="uploadedImg" id="recipe-img-input">
+                    <img id="edit-recipe-img" src="" alt="recipe image" id="recipe-img">
+                </label>
+
+                <label id="title-label">
+                    タイトル
+                    <input type="text" name="title" required>
+                </label>
+
+                <label id="ingredient-label">
+                    材料
+                    <div class="ingredient-inputs" id="ingredient-inputs"></div>
+                    <svg id="new-ingredient" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-square-fill add-btn" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+                    </svg>
+                </label>
+
+                <label id="step-label">
+                    手順
+                    <div class="step-inputs" id="step-inputs"></div>
+                    <svg id="new-step" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-square-fill add-btn" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+                    </svg>
+                </label>
+
+                <div class="add-page-btns">
+                    <button type="button" class="cancel-add-btn" onclick="cancelAdd()">キャンセル</button>
+                    <button type="button" class="apply-recipe-btn" onclick="applyEdit()">登録</button>
+                </div>
+            </form>
+        </main>
+
+        <footer>
+            <small class="copyright">&copy; <span id="year"></span> レシピマネージャー</small>
+        </footer>
+
+        <script src="../js/edit.js"></script>
+    </body>
+</html>

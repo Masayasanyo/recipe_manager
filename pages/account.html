@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>レシピマネージャー - sign up</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="icon" type="img/png" href="../assets/favicon.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <h1>
+                <a href="../index.html"><img class="logo" src="../assets/logo.svg" alt="logo"></a>
+            </h1>
+        </header>
+
+        <main class="signup-page">
+            <h2>サインアップ</h2>
+            <form id="signup-form">
+                <label>
+                    メールアドレス
+                    <input type="email" id="email" name="email" required>
+                </label>
+                <label>
+                    パスワード
+                    <input type="password" id="password" name="password" required>
+                </label>
+                <label>
+                    確認用パスワード
+                    <input type="password" id="confirmed-password" name="confirmed-password" required>
+                </label>
+                <button class="btn" type="button" onclick="signUp()">登録</button>
+                <p>すでにアカウントがある場合 <a href="login.html">ログイン</a></p>
+            </form>
+        </main>
+
+        <footer>
+            <small class="copyright">&copy; <span id="year"></span> レシピマネージャー</small>
+        </footer>
+
+        <script src="../js/signup.js"></script>
+    </body>
+</html>
