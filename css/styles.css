@@ -51,6 +51,12 @@ label {
     padding: .8rem 1rem;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 }
+.btn {
+    background-color: #1F4529;
+    border-radius: 10px;
+    padding: .5rem .8rem;
+    color: #ffffff;
+}
 
 /* home */
 .home-page {
