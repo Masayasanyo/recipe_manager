@@ -1,5 +1,22 @@
-const backenUrl = 'https://recipe-manager-backend-wnjt.onrender.com';
-// const backenUrl = 'http://localhost:4000';
+// const backenUrl = 'https://recipe-manager-backend-wnjt.onrender.com';
+const backenUrl = 'http://localhost:4000';
+
+async function login(userData) {
+    try {
+        const response = await fetch(`${backenUrl}/accounts/login`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            }, 
+            body: JSON.stringify(userData), 
+        });
+        const data = await response.json();
+        localStorage.setItem('jwt', data.token);
+        location.href = '../index.html';
+    } catch (error) {
+        console.error(`Internal server error.`, error);
+    }
+}
 
 async function signUp() {
     const form = document.getElementById("signup-form");
@@ -19,16 +36,14 @@ async function signUp() {
     }
 
     try {
-        const response = await fetch(`${backenUrl}/accounts/signup`, {
+        await fetch(`${backenUrl}/accounts/signup`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             }, 
             body: JSON.stringify(userData), 
         });
-        const data = await response.json();
-
-        location.href = '../index.html';
+        await login(userData);
     } catch (error) {
         console.error(`Internal server error.`, error);
     }

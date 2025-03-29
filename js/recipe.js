@@ -1,31 +1,17 @@
-const backenUrl = 'https://recipe-manager-backend-wnjt.onrender.com';
-// const backenUrl = 'http://localhost:4000';
-
-async function checkSession() {
-    try {
-        const response = await fetch(`${backenUrl}/accounts/session`, {
-            method: "GET",
-        });
-        const data = await response.json();
-
-        if (data.isLoggedIn === false) {
-            window.location.href = 'login.html';
-        }
-    } catch (error) {
-        console.error(`Internal server error.`, error);
-    }
-}
-checkSession();
+// const backenUrl = 'https://recipe-manager-backend-wnjt.onrender.com';
+const backenUrl = 'http://localhost:4000';
 
 const params = new URLSearchParams(window.location.search);
 const id = Number(params.get("id"));
 
 async function fetchRecipe() {
     try {
+        const token = localStorage.getItem('jwt');
         const response = await fetch(`${backenUrl}/recipes/detail`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/json' 
             }, 
             body: JSON.stringify({ recipeId: id }), 
         });

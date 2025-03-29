@@ -1,20 +1,5 @@
-const backenUrl = 'https://recipe-manager-backend-wnjt.onrender.com';
-// const backenUrl = 'http://localhost:4000';
-
-async function checkSession() {
-    try {
-        const response = await fetch(`${backenUrl}/accounts/session`, {
-            method: "GET",
-        });
-        const data = await response.json();
-
-        if (data.isLoggedIn === false) {
-            window.location.href = 'login.html';
-        }
-    } catch (error) {
-        console.error(`Internal server error.`, error);
-    }
-}
+// const backenUrl = 'https://recipe-manager-backend-wnjt.onrender.com';
+const backenUrl = 'http://localhost:4000';
 
 async function applyAdd() {
     const form = document.getElementById("recipe-add-form");
@@ -26,14 +11,19 @@ async function applyAdd() {
     let url = "";
 
     try {
+        const token = localStorage.getItem('jwt');
         const response = await fetch(`${backenUrl}/recipes/add/upload`, {
             method: "POST", 
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }, 
             body: formImgData, 
         });
         const data = await response.json();
         url = data.url;
     } catch (error) {
         console.error(`Internal server error.`, error);
+        return;
     }
 
     const ingredientNames = Array.from(document.querySelectorAll('[name="ingredientName"]'))
@@ -60,10 +50,12 @@ async function applyAdd() {
     }
 
     try {
+        const token = localStorage.getItem('jwt');
         const response = await fetch(`${backenUrl}/recipes/add`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/json' 
             }, 
             body: JSON.stringify(recipeData), 
         });
@@ -160,8 +152,6 @@ document.getElementById("new-step").addEventListener("click", function() {
 
     document.getElementById("step-inputs").appendChild(newNode);
 });
-
-checkSession();
 
 const currentYear = new Date().getFullYear();
 document.querySelector("#year").innerHTML = currentYear;

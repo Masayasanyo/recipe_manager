@@ -1,32 +1,19 @@
-const backenUrl = 'https://recipe-manager-backend-wnjt.onrender.com';
-// const backenUrl = 'http://localhost:4000';
+// const backenUrl = 'https://recipe-manager-backend-wnjt.onrender.com';
+const backenUrl = 'http://localhost:4000';
 
 const params = new URLSearchParams(window.location.search);
 const id = Number(params.get("id"));
 
 let recipeImgUrl = '';
 
-async function checkSession() {
-    try {
-        const response = await fetch(`${backenUrl}/accounts/session`, {
-            method: "GET",
-        });
-        const data = await response.json();
-
-        if (data.isLoggedIn === false) {
-            window.location.href = 'login.html';
-        }
-    } catch (error) {
-        console.error(`Internal server error.`, error);
-    }
-}
-
 async function fetchRecipe() {
     try {
+        const token = localStorage.getItem('jwt');
         const response = await fetch(`${backenUrl}/recipes/detail`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/json' 
             }, 
             body: JSON.stringify({ recipeId: id }), 
         });
@@ -97,8 +84,12 @@ async function applyEdit() {
         }
 
         try {
+            const token = localStorage.getItem('jwt');
             const response = await fetch(`${backenUrl}/recipes/edit/upload`, {
                 method: "POST", 
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }, 
                 body: formImgData, 
             });
             const data = await response.json();
@@ -133,10 +124,12 @@ async function applyEdit() {
     }
 
     try {
+        const token = localStorage.getItem('jwt');
         const response = await fetch(`${backenUrl}/recipes/edit`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/json' 
             }, 
             body: JSON.stringify(recipeData), 
         });
@@ -189,10 +182,12 @@ async function deleteRecipe() {
     }
 
     try {
+        const token = localStorage.getItem('jwt');
         const response = await fetch(`${backenUrl}/recipes/delete`, {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/json' 
             }, 
             body: JSON.stringify({ recipeId: id, recipeUrl: deleteImgUrl }), 
         });
@@ -259,8 +254,6 @@ document.getElementById("new-step").addEventListener("click", function() {
 
     document.getElementById("step-inputs").appendChild(newNode);
 });
-
-checkSession();
 
 fetchRecipe();
 
